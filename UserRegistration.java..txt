@@ -1,0 +1,53 @@
+public class UserRegistration {
+
+    public boolean checkUserName(String username) {
+        return username.contains("_") && username.length() <= 10; // Assuming max length is 10
+    }
+
+    public boolean checkPasswordComplexity(String password) {
+        return password.length() >= 8 
+            && password.matches(".*[A-Z].*") 
+            && password.matches(".*\\d.*") 
+            && password.matches(".*[^a-zA-Z0-9].*");
+    }
+
+    public boolean checkCellPhoneNumber(String phoneNumber) {
+        // Assuming South African format: +27xxxxxxxxx
+        return phoneNumber.startsWith("+27") && phoneNumber.length() == 12;
+    }
+
+    public String registerUser(String username, String password, String phoneNumber) {
+        if (!checkUserName(username)) {
+            return "Username is incorrectly formatted.";
+        }
+        if (!checkPasswordComplexity(password)) {
+            return "Password does not meet complexity requirements.";
+        }
+        if (!checkCellPhoneNumber(phoneNumber)) {
+            return "Invalid phone number.";
+        }
+        // Registration logic here
+        return "User registered successfully.";
+    }
+
+    public boolean loginUser(String username, String password) {
+        // Assuming stored credentials are available
+        String storedUsername = "storedUsername";
+        String storedPassword = "storedPassword";
+        return username.equals(storedUsername) && password.equals(storedPassword);
+    }
+
+    public String returnLoginStatus(boolean loginStatus) {
+        return loginStatus ? "Login successful." : "Login failed.";
+    }
+
+    public static void main(String[] args) {
+        UserRegistration ur = new UserRegistration();
+        System.out.println(ur.checkUserName("test_user")); // true
+        System.out.println(ur.checkPasswordComplexity("Password1!")); // true
+        System.out.println(ur.checkCellPhoneNumber("+27812345678")); // true
+        System.out.println(ur.registerUser("test_user", "Password1!", "+27812345678")); // User registered successfully.
+        System.out.println(ur.loginUser("test_user", "Password1!")); // true/false depending on stored credentials
+        System.out.println(ur.returnLoginStatus(true)); // Login successful.
+    }
+}
