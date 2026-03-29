@@ -1,0 +1,34 @@
+public class Validator {
+
+    public static boolean validateUsername(String username) {
+        return username.contains("_") && username.length() <= 5;
+    }
+
+    public static boolean validatePassword(String password) {
+        String pattern = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$";
+        return password.matches(pattern);
+    }
+
+    public static boolean validateCellPhone(String cellPhone) {
+        String pattern = "^\\+\\d{11,}$"; // Assuming South African international format starts with +
+        return cellPhone.matches(pattern);
+    }
+
+    public static void main(String[] args) {
+        // Test Data
+        String username1 = "kyl_1";
+        String username2 = "kyle!!!!!!";
+        String password1 = "Ch&&sec@ke99!";
+        String password2 = "password";
+        String cellPhone1 = "+27838968976";
+        String cellPhone2 = "08966553";
+
+        // Validation
+        System.out.println("Username 'kyl_1': " + validateUsername(username1)); // Expected: true
+        System.out.println("Username 'kyle!!!!!!': " + validateUsername(username2)); // Expected: false
+        System.out.println("Password 'Ch&&sec@ke99!': " + validatePassword(password1)); // Expected: true
+        System.out.println("Password 'password': " + validatePassword(password2)); // Expected: false
+        System.out.println("Cell Phone '+27838968976': " + validateCellPhone(cellPhone1)); // Expected: true
+        System.out.println("Cell Phone '08966553': " + validateCellPhone(cellPhone2)); // Expected: false
+    }
+}
