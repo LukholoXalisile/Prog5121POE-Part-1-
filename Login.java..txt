@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+public class Login {
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+
+    // Constructor
+    public Login(String username, String password, String firstName, String lastName) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    // Method to authenticate user
+    public boolean authenticate(String inputUsername, String inputPassword) {
+        return this.username.equals(inputUsername) && this.password.equals(inputPassword);
+    }
+
+    // Method to display authentication message
+    public void displayMessage(boolean isAuthenticated) {
+        if (isAuthenticated) {
+            System.out.println("Welcome " + firstName + " " + lastName + ", it is great to see you again.");
+        } else {
+            System.out.println("Username or password incorrect, please try again.");
+        }
+    }
+
+    public static void main(String[] args) {
+        // Sample user data
+        Login user = new Login("user123", "pass123", "John", "Doe");
+        Scanner scanner = new Scanner(System.in);
+
+        // Prompt for login
+        System.out.println("Enter username:");
+        String inputUsername = scanner.nextLine();
+
+        System.out.println("Enter password:");
+        String inputPassword = scanner.nextLine();
+
+        // Authenticate and display message
+        boolean isAuthenticated = user.authenticate(inputUsername, inputPassword);
+        user.displayMessage(isAuthenticated);
+
+        scanner.close();
+    }
+}
