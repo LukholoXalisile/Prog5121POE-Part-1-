@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+public class PhoneNumberValidator {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter cell phone number (with international code): ");
+        String phoneNumber = scanner.nextLine();
+
+        if (isValidPhoneNumber(phoneNumber)) {
+            System.out.println("Cell phone number successfully added.");
+        } else {
+            System.out.println("Cell phone number incorrectly formatted or does not contain international code.");
+        }
+
+        scanner.close();
+    }
+
+    public static boolean isValidPhoneNumber(String phoneNumber) {
+        // Check if it starts with +27 (South Africa international code)
+        if (!phoneNumber.startsWith("+27")) {
+            return false;
+        }
+
+        // Extract the part after +27
+        String numberPart = phoneNumber.substring(3);
+
+        // Check if remaining part contains only digits and is <= 10 characters
+        if (numberPart.length() > 10 || numberPart.length() == 0) {
+            return false;
+        }
+
+        // Ensure all characters are digits
+        for (int i = 0; i < numberPart.length(); i++) {
+            if (!Character.isDigit(numberPart.charAt(i))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
